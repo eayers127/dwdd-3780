@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { signIn, signOut } from '@auth/sveltekit/client'
+  	import { page } from '$app/stores'
 
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
@@ -21,6 +23,19 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+	let loggedIn: boolean;
+
+	function handleClick() {
+		if ($page.data.session?.user){
+			signOut();
+			loggedIn = false
+		}else{
+			signIn();
+			loggedIn = true;
+		}
+		console.log(`$page.data.session?.user}`)
+	}
 </script>
 
 <!-- App Shell -->
@@ -29,33 +44,21 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
+				<strong class="text-xl uppercase">Ethan Ayers</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="https://github.com/skeletonlabs/skeleton"
 					target="_blank"
 					rel="noreferrer"
 				>
-					GitHub
+					Sign In
 				</a>
+				<button class="btn btn-sm variant-ghost-surface"
+				on:click={handleClick}>
+					{loggedIn ? 'Logout' : 'Login'}
+				</button>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
