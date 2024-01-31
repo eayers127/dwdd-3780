@@ -3,3 +3,5 @@
 
     $: console.log(data);
 </script>
+
+<h1>{data.body.message}</h1>

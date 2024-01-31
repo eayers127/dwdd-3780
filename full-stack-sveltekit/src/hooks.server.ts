@@ -20,8 +20,6 @@ if (process.env.NODE_ENV === 'production') {
     }
 }
 
-// add the config for vercel production site
-
 export const handle = SvelteKitAuth({
   providers: [
     GitHub(githubConfig)],

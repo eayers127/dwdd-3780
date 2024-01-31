@@ -6,10 +6,8 @@
 	function handleClick() {
 			if ($page.data.session?.user){
 				signOut();
-				loggedIn = false
 			}else{
 				signIn();
-				loggedIn = true;
 			}
 			console.log(`$page.data.session?.user}`)
 		}
