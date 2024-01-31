@@ -3,11 +3,11 @@
   	import { page } from '$app/stores'
 
 	let loggedIn = $page.data.session?.user?.email;
-	function handleClick() {
+	async function handleClick() {
 			if ($page.data.session?.user){
-				signOut();
+				await signOut();
 			}else{
-				signIn();
+				await signIn();
 			}
 			console.log(`$page.data.session?.user}`)
 		}
