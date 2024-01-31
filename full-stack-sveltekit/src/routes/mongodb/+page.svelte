@@ -5,4 +5,4 @@
 </script>
 
 <h1>{data.body.message}</h1>
-<p>Test</p>
+<p>Test 2</p>
