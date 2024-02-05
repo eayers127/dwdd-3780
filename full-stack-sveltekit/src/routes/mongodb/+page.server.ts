@@ -1,5 +1,6 @@
 
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import { error } from '@sveltejs/kit'
 const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017'
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version

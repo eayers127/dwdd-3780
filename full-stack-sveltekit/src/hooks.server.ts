@@ -11,12 +11,14 @@ if(!clientPromise) {
 let githubConfig = {
     clientId: process.env.GITHUB_ID,
     clientSecret: process.env.GITHUB_SECRET,
+    allowDangerousEmailAccountLinking: true
 }
 
 if (process.env.NODE_ENV === 'production') {
     githubConfig = {
         clientId: process.env.GITHUB_PROD_ID,
         clientSecret: process.env.GITHUB_PROD_SECRET,
+        allowDangerousEmailAccountLinking: true
     }
 }
 

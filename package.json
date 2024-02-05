@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@auth/mongodb-adapter": "^2.0.15",
-    "mongodb": "^6.3.0"
-  }
-}

@@ -7,7 +7,7 @@
 			if ($page.data.session?.user){
 				await signOut();
 			}else{
-				await signIn();
+				await signIn('github');
 			}
 			console.log(`$page.data.session?.user}`)
 		}
