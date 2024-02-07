@@ -59,6 +59,27 @@
 				on:click={handleClick}>
 					{loggedIn ? 'Logout' : 'Login'}
 				</button>
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="/"
+					rel="noreferrer"
+				>
+					Home
+				</a>
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="/mongodb"
+					rel="noreferrer"
+				>
+					MongoDB
+				</a>
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="/movies"
+					rel="noreferrer"
+				>
+					Movies
+				</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
