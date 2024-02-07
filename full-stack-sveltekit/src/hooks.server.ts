@@ -24,7 +24,8 @@ if (process.env.NODE_ENV === 'production') {
 
 export const handle = SvelteKitAuth({
   providers: [
-    GitHub(githubConfig)],
+    GitHub(githubConfig),
+],
     adapter: MongoDBAdapter(clientPromise, {
         databaseName: 'dwdd-3780',
     }),
