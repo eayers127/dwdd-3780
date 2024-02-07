@@ -9,13 +9,26 @@ export async function load() {
         try {
           const database = client.db("sample_mflix");
           const moviesColl = database.collection("movies");
-          const movieArray = await moviesColl.find(
-            { year: 2012 }
-          ).toArray();
+        //   const movieArray = await moviesColl.find(
+        //     { year: {$gte: 2012, $lt: 2014} }
+        //   ).toArray();
 
-          movies = movieArray.map(movie => {
-            return {...movie, _id: (movie._id as ObjectId).toString()};
-          })
+        //   movies = movieArray.map(movie => {
+        //     return {...movie, _id: (movie._id as ObjectId).toString()};
+        //   })
+        const movieArray = await moviesColl.find({
+            $and: [
+                { year: 2012 },
+                {$or: [
+                    {"imdb.rating": { $gte: 8}},
+                    {"metacritic": { $gte: 90}}
+                ]}
+            ]
+        }).toArray();
+    
+              movies = movieArray.map(movie => {
+                return {...movie, _id: (movie._id as ObjectId).toString()};
+              })
           console.log(movieArray.length);
         } finally {
           await client.close();
