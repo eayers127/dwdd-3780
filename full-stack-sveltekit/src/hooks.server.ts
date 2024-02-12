@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
     }
 }
 
-export const handle = SvelteKitAuth({
+export const { handle } = SvelteKitAuth({
   providers: [
     GitHub(githubConfig),
 ],
