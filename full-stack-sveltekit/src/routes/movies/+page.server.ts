@@ -1,14 +1,14 @@
-import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017'
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri);
+import clientPromise from '$lib/mongodb/mongodb.client';
+import { MongoClient, ObjectId } from 'mongodb';
 
 export async function load() {
         let movies;
+        let client;
+
         try {
-          const database = client.db("sample_mflix");
-          const moviesColl = database.collection("movies");
+          client = await clientPromise;
+          const database = client?.db("sample_mflix");
+          const moviesColl = database?.collection("movies");
         //   const movieArray = await moviesColl.find(
         //     { year: {$gte: 2012, $lt: 2014} }
         //   ).toArray();
@@ -16,7 +16,7 @@ export async function load() {
         //   movies = movieArray.map(movie => {
         //     return {...movie, _id: (movie._id as ObjectId).toString()};
         //   })
-        const movieArray = await moviesColl.find({
+        const movieArray = await moviesColl?.find({
             $and: [
                 { year: 2012 },
                 {$or: [
@@ -26,16 +26,20 @@ export async function load() {
             ]
         }).toArray();
     
-              movies = movieArray.map(movie => {
+              movies = movieArray?.map(movie => {
                 return {...movie, _id: (movie._id as ObjectId).toString()};
               })
-          console.log(movieArray.length);
-        } finally {
-          await client.close();
+          console.log(movieArray?.length);
+        } catch (error) {
+          console.error('Failed to connect to MongoDB', error)
+          if (client) {
+            await client?.close();
+          }
+          return {
+            status: 500,
+            body: 'Failed to connect to MongoDB'
+          }
         }
-        // if (movies) {
-        //     movies = {...movies, _id: (movies._id as ObjectId).toString()};
-        // }
         return {
             status: 200,
             body: movies
