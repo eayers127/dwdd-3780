@@ -1,8 +1,11 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, Modal, initializeStores } from '@skeletonlabs/skeleton';
 	import { signIn, signOut } from '@auth/sveltekit/client'
   	import { page } from '$app/stores'
+	// import ThemeMenu from '$lib/components/ThemeMenu.svelte'
+
+	initializeStores();
 
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
@@ -22,6 +25,7 @@
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+	import ThemeMenu from '$lib/components/ThemeMenu.svelte';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	let loggedIn: boolean;
@@ -37,7 +41,6 @@
 		console.log(`$page.data.session?.user}`)
 	}
 </script>
-
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header">
@@ -47,17 +50,9 @@
 				<strong class="text-xl uppercase">Ethan Ayers</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Sign In
-				</a>
 				<button class="btn btn-sm variant-ghost-surface"
 				on:click={handleClick}>
-					{loggedIn ? 'Logout' : 'Login'}
+					{loggedIn ? 'Login' : 'Logout'}
 				</button>
 				<a
 					class="btn btn-sm variant-ghost-surface"
@@ -80,6 +75,9 @@
 				>
 					Movies
 				</a>
+				{#if loggedIn}
+					<ThemeMenu />
+				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
