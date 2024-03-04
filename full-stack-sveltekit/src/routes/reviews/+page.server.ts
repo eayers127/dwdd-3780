@@ -16,36 +16,36 @@ function convertDecimal128FieldsToNumber(doc: unknown): unknown {
 }
 
 export async function load() {
-    const movieId = params._id;
+    let airbnbs
+	let client
 
-    let client, movies;
+	try {
+		client = await clientPromise
+		const airbnbDB = client?.db('sample_airbnb')
+		const airbnbColl = airbnbDB?.collection('listingsAndReviews')
 
-    try{
-        client = await clientPromise;
-        const movieDb = client?.db('sample_mflix');
-        const moviesColl = movieDb?.collection('movies');
+		const airbnbArray = await airbnbColl?.find().limit(10).toArray()
 
-        const movieArray = await moviesColl?.find().limit(10).toArray();
+		const decimalConvertedDocs = airbnbArray?.map((doc) => convertDecimal128FieldsToNumber(doc))
 
-        const decimalConvertedDocs = movieArray?.map((doc) => {
-            convertDecimal128FieldsToNumber(doc)
-        })
-        movies = decimalConvertedDocs?.map((movie) => {
-            return {...movie as Record<string, unknown>, _id: ((movie as Record<string, unknown>)._id as ObjectId).toString()}
-        })
-
-    } catch (error) {
-        if (client) {
-          await client?.close();
-        }
-        return {
-          status: 500,
-          body: 'Failed to connect to Movie Reviews MongoDB'
-        }
-    }
+		airbnbs = decimalConvertedDocs?.map((listing) => {
+			return { ...listing as Record<string, unknown>, _id: ((listing as Record<string, unknown>)._id as ObjectId).toString() }
+		})
+	} catch (error) {
+		console.error('Failed to connect to AirBnB database', error)
+		if (client) {
+			client.close()
+		}
+		return {
+			status: 500,
+			body: {
+				error: 'Failed to connect to AirBnB database'
+			}
+		}
+	}
     return {
         status: 200,
-        body: movies
+        body: airbnbs
     }
 }
 

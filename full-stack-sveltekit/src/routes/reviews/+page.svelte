@@ -14,19 +14,16 @@
         max: 5,
     }
 
-    let formVisible = true;
+    let formVisible = false;
     let listingName = '';
 
     function iconClick(event: CustomEvent<{index:number}>): void {
         rating.current = event.detail.index;
     }
 
-    function addReview() {
-        formVisible = true;
-    }
-
     function handleReview(event: CustomEvent<{ show: boolean, name: string}>) {
         formVisible = event.detail.show;
+        listingName = event.detail.name;
     }
 
     function handleCancel() {
@@ -67,14 +64,6 @@
         </form>
     </div>
     {/if}
-    <div class="flex flex-wrap">
-        {#each data.body as movie}
-            <div class='card m-4 card-hover cursor-pointer flex flex-col justify-between'>
-                <a class="card-header" href={`/movies/${movie._id}`}>{movie.title}</a>
-               <button class="btn btn-icon btn-icon-sm variant-filled-secondary" on:click={addReview}>Add Review</button>
-            </div>
-        {/each}
-    </div>
 
     {#if data}
         <Listing listings={data.body} on:showReviewForm={handleReview}/>
