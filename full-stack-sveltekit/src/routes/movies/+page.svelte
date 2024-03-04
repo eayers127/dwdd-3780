@@ -5,7 +5,7 @@
     $: console.log(data);
     
     async function fetchMovie(id: string) {
-        const res = await fetch(`/src/routes/api/movie`)
+        const res = await fetch(`/api/movie`)
         //const movie = await res.json()
         //console.log(movie)
     }
@@ -22,9 +22,9 @@
                 </div>
                 <p class="card-footer">{movie.runtime} minutes</p> -->
                 <!-- <p>{movie.awards.nominated}</p> -->
-                <button class="btn variant-secondary"
+                <!-- <button class="btn variant-secondary"
                 on:click={() => fetchMovie(movie._id)}
-                >View</button>
+                >View</button> -->
             </div>
         {/each}
     </div>

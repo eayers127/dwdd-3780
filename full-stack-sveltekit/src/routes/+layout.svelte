@@ -75,6 +75,13 @@
 				>
 					Movies
 				</a>
+				<a
+				class="btn btn-sm variant-ghost-surface"
+				href="/reviews"
+				rel="noreferrer"
+			>
+				AirBnB
+			</a>
 				{#if loggedIn}
 					<ThemeMenu />
 				{/if}

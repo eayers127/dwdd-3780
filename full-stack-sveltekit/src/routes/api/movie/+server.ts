@@ -5,7 +5,7 @@ const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017'
 const client = new MongoClient(uri);
 
 export async function GET(request: Request) {
-    const body = await request.json()
-    console.log(body)
+    //const body = await request.json()
+    //console.log(body)
     return new Response('Hello World')
 }

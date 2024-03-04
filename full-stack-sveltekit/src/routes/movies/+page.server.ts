@@ -1,5 +1,5 @@
 import clientPromise from '$lib/mongodb/mongodb.client';
-import { MongoClient, ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 export async function load() {
         let movies;
