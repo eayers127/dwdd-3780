@@ -1,4 +1,5 @@
 import clientPromise from "$lib/mongodb/mongodb.client";
+import { fail } from "@sveltejs/kit";
 import { ObjectId, Decimal128 } from "mongodb";
 
 function convertDecimal128FieldsToNumber(doc: unknown): unknown {
@@ -81,6 +82,7 @@ async function getListingId(listingName: string) {
 }
 
 async function addReview(username: string, rating: number, review: string, listingName: string) {
+    let client
     if (username === '') {
         throw new Error('Username is required')
     }
@@ -93,14 +95,46 @@ async function addReview(username: string, rating: number, review: string, listi
 
     const userId = await getUserId(username)
     const listingId = await getListingId(listingName)
+
+    try {
+        client = await clientPromise
+        const reviewCollection = client?.db('dwdd-3780').collection('reviews')
+        await reviewCollection?.insertOne({
+            userId,
+            listingId,
+            rating,
+            review
+        })
+    } catch (error) {
+        throw new Error('Failed to add review')
+    }
 }
 
 export const actions = {
     submitReview: async ({ request }) => {
         const data = await request.formData();
-        console.log(data.get('username'))
-        console.log(data.get('listingName'))
-        console.log(data.get('ratingValue'))
-        console.log(data.get('review'))
+        // console.log(data.get('username'))
+        // console.log(data.get('listingName'))
+        // console.log(data.get('ratingValue'))
+        // console.log(data.get('review'))
+        const username = data.get('username') as string
+        const rating = data.get('ratingValue')
+        const review = data.get('review') as string
+        const listingName = data.get('listingName') as string
+        try {
+            await addReview(username, Number(rating), review, listingName)
+            return {
+                status: 200,
+                body: {
+                    message: 'Review added successfully'
+                }
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                return fail(422, {
+                    error: error.message
+                })
+            }
+        }
     }
 }

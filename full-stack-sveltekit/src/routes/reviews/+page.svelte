@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Ratings } from '@skeletonlabs/skeleton'
-    // export let data: any;
     import { page } from '$app/stores'
     import { fly, slide } from 'svelte/transition'
     import Listing from '$lib/components/Listing.svelte'
@@ -8,6 +7,8 @@
     $: console.log(data.body);
 
     export let data: any;
+    export let form: any;
+    let scrollElement: HTMLElement
 
     let rating = {
         current: 3,
@@ -24,6 +25,9 @@
     function handleReview(event: CustomEvent<{ show: boolean, name: string}>) {
         formVisible = event.detail.show;
         listingName = event.detail.name;
+        scrollElement.scrollIntoView({
+            behavior: 'smooth',
+        })
     }
 
     function handleCancel() {
@@ -31,11 +35,18 @@
     }
 </script>
 
-<main class="container">
+<main class="container" bind:this={scrollElement}>
     <div><h2>WELCOME</h2></div>
     {#if formVisible}
     <div class="flex justify-center" in:fly={{ y: 200 }} out:slide>
-            <form method="post" action="?/addReview">
+
+        {#if form?.error}
+            <div class="bg-red-100 rounded relative text-red-700 m-4">
+                <p class="font-bold">Error!</p>
+                <span>{form.error}</span>
+            </div>
+        {/if}
+            <form method="POST" action="?/submitReview">
                 <input id="username" name="username" type="hidden" value={$page.data.session?.user?.name ?? ''}>
                 <input id="listingName" name="listingName" type="hidden" value={listingName}>
                 <input id="ratingValue" name="ratingValue" type="hidden" value={rating.current}>
@@ -54,12 +65,13 @@
                 </Ratings>
             </div>
             <div>
-                <label for="review">Review</label>
-                <textarea class="textarea" name="review" placeholder="Your Review" rows="4" required></textarea>
+                <label for="review">Review
+                    <textarea class="textarea" id="review" name="review" placeholder="Your Review" rows="4" required></textarea>
+                </label>
             </div>
             <div>
                 <button class="btn btn-sm variant-filled-tertiary" on:click={handleCancel}>Cancel</button>
-                <button class="btn btn-sm variant-filled-primary">Submit</button>
+                <button class="btn btn-sm variant-filled-primary" type="submit">Submit</button>
             </div>
         </form>
     </div>
