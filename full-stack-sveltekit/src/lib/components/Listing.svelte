@@ -1,5 +1,8 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
+	import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
+
+	const modalStore = getModalStore();
 
     const dispatch = createEventDispatcher();
 
@@ -37,12 +40,23 @@
 		}
 	}
 
-    function showReviewForm(listing: listing): void {
+    function showReviewForm(listing: Listing): void {
         dispatch('showReviewForm', 
         {show: true,
          name: listing.name
         });
     }
+
+	const handleReviews = async (listing: Listing) =>{
+
+		const modal: ModalSettings = {
+			type: 'alert',
+			title: 'Reviews',
+			body: listing,
+
+		};
+		modalStore.trigger(modal);
+	};
 </script>
 
 <div class="flex flex-wrap justify-center w-full">
@@ -51,6 +65,7 @@
 			<div class="flex justify-between">
 				<h2 class="text-xl font-bold mb-1">{listing.name}</h2>
                 <button class="btn max-h-6 variant-filled-tertiary" on:click={() => showReviewForm(listing)}>Review</button>
+				<button class="btn max-h-6 variant-filled-tertiary" on:click={() => handleReviews(listing)}>Open Review</button>
 			</div>
 			<p class="text-sm mb-1">{listing.summary}</p>
 		</div>

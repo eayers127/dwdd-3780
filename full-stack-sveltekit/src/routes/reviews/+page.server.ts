@@ -65,7 +65,7 @@ async function getUserId(username: string) {
     }
 }
 
-async function getListingId(listingName: string) {
+async function getListingId(listingName: string): Promise<ObjectId>{
     let client
     try{
         client = await clientPromise
@@ -96,18 +96,48 @@ async function addReview(username: string, rating: number, review: string, listi
     const userId = await getUserId(username)
     const listingId = await getListingId(listingName)
 
+    client = await clientPromise
+
     try {
-        client = await clientPromise
         const reviewCollection = client?.db('dwdd-3780').collection('reviews')
-        await reviewCollection?.insertOne({
-            userId,
-            listingId,
-            rating,
-            review
+        await reviewCollection?.updateOne(
+            {_id: listingId },
+            {
+                $push: {
+                    reviews: {
+                        _id: new ObjectId().toString(),
+                        date: new Date(),
+                        listing_id: listingId.toString(),
+                        reviewer_id: userId.toString(),
+                        reviewer_name: username,
+                        comments: review,
+                        rating: rating
+                    }
+                }
         })
     } catch (error) {
         throw new Error('Failed to add review')
     }
+    try {
+		const usersCollection = client?.db('dwdd-3780').collection('users')
+		await usersCollection?.updateOne(
+			{ _id: userId },
+			{
+				$push: {
+					reviews: {
+						_id: new ObjectId().toString(),
+						date: new Date(),
+						listing_id: listingId.toString(),
+						listing_name: listingName,
+						comments: review,
+						rating: rating
+					}
+				}
+			}
+		)
+	} catch (error) {
+		throw new Error('Failed to add review to dwdd-3780.users collection')
+	}
 }
 
 export const actions = {
