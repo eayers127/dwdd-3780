@@ -21,6 +21,7 @@
 		bedrooms: number
 		bathrooms: number
 		security_deposit: number
+		reviews: string[]
 	}
 
 	$: convertedListings = listings.map((item: any) => convertToListing(item))
@@ -36,7 +37,8 @@
 			price: data.price || 0,
 			bedrooms: data.bedrooms || 0,
 			bathrooms: data.bathrooms || 0,
-			security_deposit: data.security_deposit || 0
+			security_deposit: data.security_deposit || 0,
+			reviews: data.reviews || [],
 		}
 	}
 
@@ -49,13 +51,17 @@
 
 	const handleReviews = async (listing: Listing) =>{
 
-		const modal: ModalSettings = {
-			type: 'alert',
-			title: 'Reviews',
-			body: listing,
+		// const modal: ModalSettings = {
+		// 	type: 'alert',
+		// 	title: 'Reviews',
+		// 	body: listing,
 
-		};
-		modalStore.trigger(modal);
+		// };
+		// modalStore.trigger(modal);
+		dispatch('showListingReviews', 
+		{ show: true,
+		  listingReviews: listing.reviews
+		 });
 	};
 </script>
 

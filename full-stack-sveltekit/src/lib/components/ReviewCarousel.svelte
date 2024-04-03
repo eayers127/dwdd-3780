@@ -31,6 +31,10 @@
                 : elemCarousel.scrollLeft + elemCarousel.clientWidth;
         elemCarousel.scroll(x, 0);
     }
+
+    function closeCarousel(): void {
+
+    }
                         
     
     </script>
@@ -38,6 +42,7 @@
     <div class="card p-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center">
         <button class="btn-icon variant-outline-primary" on:click={carouselLeft}>
             <i class="fa-solid fa-arrow-left"></i>
+            <p class="text-2xl pb-2 pr-2">&#8592;</p>
         </button>
         <div bind:this={elemCarousel} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">
             {#each reviews as review}
@@ -64,5 +69,6 @@
         </div>
         <button class="btn-icon variant-outline-primary" on:click={carouselRight}>
             <i class="fa-solid fa-arrow-right"></i>
+            <p class="text-2xl pb-2 pr-2">&#8594;</p>
         </button>
     </div>

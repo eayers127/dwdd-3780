@@ -51,6 +51,10 @@
 		listingReviews = event.detail.listingReviews
 		scrollElement.scrollIntoView({ behavior: 'smooth' })
 	}
+
+    function closeReviews() {
+        reviewsVisible = false;
+    }
 </script>
 
 <main class="container" bind:this={scrollElement}>
@@ -97,9 +101,12 @@
 
     {#if reviewsVisible}
 	<ReviewCarousel reviews={listingReviews}/>
-	{/if}
+    <div class="flex justify-center items-center m-4">
+        <button class="btn variant-outline-primary" on:click={closeReviews}>Close Reviews</button>
+    </div>
+    {/if}
 
     {#if data}
-        <Listing listings={data.body} on:showReviewForm={handleReview}/>
+        <Listing listings={data.body} on:showReviewForm={handleReview} on:showListingReviews={handleShowReviews}/>
     {/if}
 </main>
