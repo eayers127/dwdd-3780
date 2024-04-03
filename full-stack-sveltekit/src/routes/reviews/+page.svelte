@@ -3,6 +3,7 @@
     import { page } from '$app/stores'
     import { fly, slide } from 'svelte/transition'
     import Listing from '$lib/components/Listing.svelte'
+    import ReviewCarousel from '$lib/components/ReviewCarousel.svelte'
 
     $: console.log(data.body);
 
@@ -15,8 +16,19 @@
         max: 5,
     }
 
+    interface Review {
+		_id: string
+		data: Date
+		listing_id: string
+		reviewer_name: string
+		comments: string
+		rating: number
+	}
+
     let formVisible = false;
+    let reviewsVisible = false;
     let listingName = '';
+    let listingReviews: Review[] = [];
 
     function iconClick(event: CustomEvent<{index:number}>): void {
         rating.current = event.detail.index;
@@ -33,6 +45,12 @@
     function handleCancel() {
         formVisible = false;
     }
+
+    function handleShowReviews(event: CustomEvent<{ show: boolean; listingReviews: Review[]}>): void {
+		reviewsVisible = event.detail.show
+		listingReviews = event.detail.listingReviews
+		scrollElement.scrollIntoView({ behavior: 'smooth' })
+	}
 </script>
 
 <main class="container" bind:this={scrollElement}>
@@ -76,6 +94,10 @@
         </form>
     </div>
     {/if}
+
+    {#if reviewsVisible}
+	<ReviewCarousel reviews={listingReviews}/>
+	{/if}
 
     {#if data}
         <Listing listings={data.body} on:showReviewForm={handleReview}/>
