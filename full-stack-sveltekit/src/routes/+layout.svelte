@@ -82,6 +82,13 @@
 			>
 				AirBnB
 			</a>
+			<a
+			class="btn btn-sm variant-ghost-surface"
+			href="/sales"
+			rel="noreferrer"
+		>
+			Sales
+		</a>
 				{#if loggedIn}
 					<ThemeMenu />
 				{/if}

@@ -7,5 +7,17 @@ const client = new MongoClient(uri);
 export async function GET(request: Request) {
     //const body = await request.json()
     //console.log(body)
-    return new Response('Hello World')
+    let message = 'Hello World'
+    return new Response(
+        JSON.stringify(message), {status: 200}
+    )
+}
+
+export async function POST({ request }) {
+    const body = await request.json()
+    console.log(body)
+    //let message = 'Hello World'
+    return new Response(
+        JSON.stringify(body), {status: 200}
+    )
 }
