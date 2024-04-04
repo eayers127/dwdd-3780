@@ -69,9 +69,9 @@
 	{#each convertedListings as listing}
 		<div class="card m-2 p-2 w-96">
 			<div class="flex justify-between">
-				<h2 class="text-xl font-bold mb-1">{listing.name}</h2>
+				<h2 class="text-lg font-bold mb-1">{listing.name}</h2>
                 <button class="btn max-h-6 variant-filled-tertiary" on:click={() => showReviewForm(listing)}>Review</button>
-				<button class="btn max-h-6 variant-filled-tertiary" on:click={() => handleReviews(listing)}>Open Review</button>
+				<button class="btn max-h-6 variant-filled-primary text-white" on:click={() => handleReviews(listing)}>Open Reviews</button>
 			</div>
 			<p class="text-sm mb-1">{listing.summary}</p>
 		</div>
