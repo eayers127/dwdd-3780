@@ -67,13 +67,17 @@
 
 <div class="flex flex-wrap justify-center w-full">
 	{#each convertedListings as listing}
-		<div class="card m-2 p-2 w-96">
-			<div class="flex justify-between">
+		<div class="card m-2 p-2 w-80 h-64 relative">
+			<div class="justify-between">
 				<h2 class="text-lg font-bold mb-1">{listing.name}</h2>
-                <button class="btn max-h-6 variant-filled-tertiary" on:click={() => showReviewForm(listing)}>Review</button>
+			</div>
+			<div>
+				<p class="text-sm mb-1 line-clamp-[8]">{listing.summary}</p>
+			</div>
+			<div class="absolute inset-x-10 bottom-2">
+				<button class="btn max-h-6 variant-filled-tertiary" on:click={() => showReviewForm(listing)}>Review</button>
 				<button class="btn max-h-6 variant-filled-primary text-white" on:click={() => handleReviews(listing)}>Open Reviews</button>
 			</div>
-			<p class="text-sm mb-1">{listing.summary}</p>
 		</div>
 	{/each}
 </div>
