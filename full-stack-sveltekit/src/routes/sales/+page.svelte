@@ -12,6 +12,10 @@
         averageSales: 0
     }
 
+    let itemName: string = ''
+    let coupon: boolean = false
+    let age: number = 0
+
     let singleLocation: string = '';
 
     let canvasElement: HTMLCanvasElement;
@@ -53,7 +57,7 @@
     }
 
     async function getSalesData() {
-        const response = await fetch('/api/sales');
+        const response = await fetch(`/api/sales?itemName=${itemName}&coupon=${coupon}&age=${age}`);
         const data = await response.json();
         allSalesData = data;
     };
@@ -94,9 +98,26 @@
     <div class="flex flex-col justify-center items-center w-full h-screen">
         <div class="flex flex-col justify-center items-center w-1/2 h-1/2 bg-slate-300 text-black rounded-md">
             <h2 class="font-bold text-2xl">Sales Data</h2>
+            <form class="p-2">
+                <label>
+                    <p>Show sales numbers for specific item:</p>
+                    <input class="rounded-md" type="text" placeholder="Enter Item Name:" bind:value={itemName}/>
+                </label>
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" class="checkbox" bind:checked={coupon}/>
+                    <p>Coupon Used</p>
+                </label>
+                <input type="range" max="100" bind:value={age}/>
+
+            </form>
             <button class="btn variant-outline-secondary m-2" on:click={getSalesData}>Get Sales Data</button>
             <button class="btn variant-outline-secondary" disabled={allSalesData.length === 0} on:click={graphSalesData}>Graph Sales Data</button>
         </div>
+        {#if allSalesData.length === 0}
+            <div class="w-1/2 text-center p-6 m-4 bg-slate-300 text-black rounded-md">
+                    <h3>No Data to Display</h3>
+            </div>
+        {:else}
         <div class="flex bg-slate-600 mt-4 rounded-md">
             <div class="w-1/2">
                     <canvas class="bg-slate-100 rounded-md m-2" bind:this={canvasElement}></canvas>
@@ -114,6 +135,7 @@
                 <button class="btn variant-filled-primary" disabled={!singleLocation} on:click={exportSalesData}>Export Sales Data</button>
             </div>
         </div>
+        {/if}
     </div>
 
 </section>
