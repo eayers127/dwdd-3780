@@ -23,7 +23,7 @@ export async function GET(request: Request) {
             return {...sale, _id: (sale._id as ObjectId).toString()}
         })
     } catch (error) {
-        console.error('Failed to connect to MongoDb sales');
+        console.error('Failed to connect to MongoDb sales', error);
         if (client) {
             await client.close();
         }
@@ -40,8 +40,25 @@ export async function GET(request: Request) {
 export async function POST({ request }) {
     const body = await request.json()
     console.log(body)
-    //let message = 'Hello World'
+    
+    let client
+    try {
+        client = await clientPromise
+        const salesDb = client?.db('sample_supplies');
+        const statsColl = salesDb?.collection('stats');
+        statsColl?.insertMany(body);
+    } catch (error) {
+        console.error('Failed to connect to MongoDb sales', error);
+        if (client) {
+            await client.close();
+        }
+        return {
+            status: 500,
+            body: 'Failed to connect to MongoDb sales'
+        }
+    }
+
     return new Response(
-        JSON.stringify(body), {status: 200}
+        JSON.stringify('Success'), {status: 200}
     )
 }
