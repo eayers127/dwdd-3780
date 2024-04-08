@@ -46,7 +46,7 @@ export async function POST({ request }) {
         client = await clientPromise
         const salesDb = client?.db('sample_supplies');
         const statsColl = salesDb?.collection('stats');
-        statsColl?.insertMany(body);
+        statsColl?.insertOne(body);
     } catch (error) {
         console.error('Failed to connect to MongoDb sales', error);
         if (client) {
