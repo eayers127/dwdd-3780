@@ -117,7 +117,8 @@
             <div class="w-1/2 text-center p-6 m-4 bg-slate-300 text-black rounded-md">
                     <h3>No Data to Display</h3>
             </div>
-        {:else}
+        {/if}
+
         <div class="flex bg-slate-600 mt-4 rounded-md">
             <div class="w-1/2">
                     <canvas class="bg-slate-100 rounded-md m-2" bind:this={canvasElement}></canvas>
@@ -135,7 +136,7 @@
                 <button class="btn variant-filled-primary" disabled={!singleLocation} on:click={exportSalesData}>Export Sales Data</button>
             </div>
         </div>
-        {/if}
+
     </div>
 
 </section>
