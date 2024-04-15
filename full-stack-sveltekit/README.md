@@ -7,8 +7,10 @@
 ## Adding API endpoints
 
 [Sales Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/sales)
+
 [Sales API Folders](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/api/sales)
 >Connected to sample sales database in MongoDB
+>
 >Get and Post data to the database
 
 Live Link: [View in Vercel](https://dwdd-3780-new.vercel.app/sales)
