@@ -104,7 +104,7 @@ async function addReview(username: string, rating: number, review: string, listi
     client = await clientPromise
 
     try {
-        const reviewCollection = client?.db('dwdd-3780').collection('reviews')
+        const reviewCollection = client?.db('sample_airbnb').collection('listingsAndReviews')
         await reviewCollection?.updateOne(
             {_id: listingId },
             {
