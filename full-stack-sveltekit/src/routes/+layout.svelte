@@ -28,18 +28,15 @@
 	import ThemeMenu from '$lib/components/ThemeMenu.svelte';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
-	let loggedIn: boolean;
-
-	function handleClick() {
-		if ($page.data.session?.user){
-			signOut();
-			loggedIn = false
-		}else{
-			signIn();
-			loggedIn = true;
+	let loggedIn = $page.data.session?.user?.email;
+	async function handleClick() {
+			if ($page.data.session?.user){
+				await signOut();
+			}else{
+				await signIn('github');
+			}
+			console.log(`$page.data.session?.user}`)
 		}
-		console.log(`$page.data.session?.user}`)
-	}
 </script>
 <!-- App Shell -->
 <AppShell>
@@ -50,10 +47,6 @@
 				<strong class="text-xl uppercase">Ethan Ayers</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<button class="btn btn-sm variant-ghost-surface"
-				on:click={handleClick}>
-					{loggedIn ? 'Login' : 'Logout'}
-				</button>
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="/"
@@ -61,13 +54,7 @@
 				>
 					Home
 				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="/mongodb"
-					rel="noreferrer"
-				>
-					MongoDB
-				</a>
+				{#if loggedIn}
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="/movies"
@@ -89,6 +76,7 @@
 		>
 			Sales
 		</a>
+		{/if}
 				{#if loggedIn}
 					<ThemeMenu />
 				{/if}
