@@ -1,5 +1,5 @@
 import clientPromise from "$lib/mongodb/mongodb.client";
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import { ObjectId, Decimal128 } from "mongodb";
 
 function convertDecimal128FieldsToNumber(doc: unknown): unknown {
@@ -16,7 +16,12 @@ function convertDecimal128FieldsToNumber(doc: unknown): unknown {
     return doc
 }
 
-export async function load() {
+export async function load(event) {
+
+    const session = await event.locals.auth()
+    if (!session?.user) {
+        throw redirect(303, '/')
+    }
     let airbnbs
 	let client
 
@@ -143,10 +148,6 @@ async function addReview(username: string, rating: number, review: string, listi
 export const actions = {
     submitReview: async ({ request }) => {
         const data = await request.formData();
-        // console.log(data.get('username'))
-        // console.log(data.get('listingName'))
-        // console.log(data.get('ratingValue'))
-        // console.log(data.get('review'))
         const username = data.get('username') as string
         const rating = data.get('ratingValue')
         const review = data.get('review') as string

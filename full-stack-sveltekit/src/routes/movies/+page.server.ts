@@ -1,7 +1,13 @@
 import clientPromise from '$lib/mongodb/mongodb.client';
+import { redirect } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 
-export async function load() {
+export async function load(event) {
+
+  const session = await event.locals.auth()
+  if (!session?.user) {
+      throw redirect(303, '/')
+  }
         let movies;
         let client;
 
