@@ -39,7 +39,8 @@
         listingName = event.detail.name;
         scrollElement.scrollIntoView({
             behavior: 'smooth',
-        })
+        });
+        closeReviews();
     }
 
     function handleCancel() {
@@ -47,9 +48,10 @@
     }
 
     function handleShowReviews(event: CustomEvent<{ show: boolean; listingReviews: Review[]}>): void {
-		reviewsVisible = event.detail.show
-		listingReviews = event.detail.listingReviews
-		scrollElement.scrollIntoView({ behavior: 'smooth' })
+		reviewsVisible = event.detail.show;
+		listingReviews = event.detail.listingReviews;
+		scrollElement.scrollIntoView({ behavior: 'smooth', });
+        handleCancel();
 	}
 
     function closeReviews() {
@@ -57,8 +59,7 @@
     }
 </script>
 
-<main class="container" bind:this={scrollElement}>
-    <div><h2>WELCOME</h2></div>
+<main class="container p-4" bind:this={scrollElement}>
     {#if formVisible}
     <div class="flex justify-center" in:fly={{ y: 200 }} out:slide>
 
@@ -98,6 +99,7 @@
         </form>
     </div>
     {/if}
+
 
     {#if reviewsVisible}
 	<ReviewCarousel reviews={listingReviews}/>
