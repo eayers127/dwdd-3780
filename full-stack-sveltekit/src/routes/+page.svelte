@@ -13,14 +13,43 @@
 		}
 </script>
 
-<!-- <p>User: {$page.data.session?.user?.email}</p> -->
-<div class="container h-full mx-auto flex justify-center items-center">
-	<div class="space-y-10 text-center flex flex-col items-center">
-		<h2 class="h2">Welcome to Skeleton.</h2>
-	</div>
-	<button class="btn btn-md variant-ghost-surface"
-		on:click={handleClick}>
-		{loggedIn ? 'Logout' : 'Login'}
-	</button>
+<div class="container h-full mx-auto flex flex-col justify-center items-center">
+    <div class="space-y-10 text-center">
+        <h2 class="text-4xl font-bold">Welcome to My App</h2>
+    </div>
+    <div class="flex items-center mt-8">
+		{#if !loggedIn}
+        <h4 class="mr-6">Sign in to get started</h4>
+		<div class="mt-1">
+			<svg class="animate-bounce-sideways w-6 h-6 text-gray-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
+			</svg>
+		</div>
+		{/if}
+		<div>
+			<button class="btn btn-md variant-ghost-surface"
+				on:click={handleClick}>
+				{loggedIn ? 'Logout' : 'Login'}
+			</button>
+		</div>
+    </div>
 </div>
+
+<style>
+
+@keyframes bounce-sideways {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+.animate-bounce-sideways {
+  animation: bounce-sideways 1s infinite;
+}
+
+</style>
+
 
