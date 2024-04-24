@@ -1,8 +1,15 @@
 # Live Site
 
 > My live site hosted on Vercel:
-> Updated URL coming soon
-[click here](https://dwdd-3780-new.vercel.app/).
+[click here](https://www.ethanayers.xyz/).
+
+## Dynamic Routes
+[Movie Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/movies)
+
+Live Link: [Movies](https://www.ethanayers.xyz/movies)
+
+Selecting a movie takes the user to a dynamic route where they can find more information about the movie selected.
+The data is retrieved from MongoDB sample data.
 
 ## Adding API endpoints
 
