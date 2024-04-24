@@ -10,21 +10,24 @@
         //console.log(movie)
     }
 </script>
-<main>
-    <h1>{data.body.length} Movies</h1>
-    <div class="flex flex-wrap">
+<main class="p-4">
+    <h1 class="text-2xl font-bold mb-8">{data.body.length} Movies</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {#each data.body as movie}
-            <div class='card m-4 max-w-64 card-hover cursor-pointer flex flex-col justify-between'>
-                <a class="card-header" href={`/movies/${movie._id}`}>{movie.title}</a>
-                <!-- <div class="">
-                    <img class="p-4 h-44 max-w-32" src={movie.poster} alt={movie.title}/>
-                    <p class="p-4 text-xs text-ellipsis">{movie.fullplot}</p>
-                </div>
-                <p class="card-footer">{movie.runtime} minutes</p> -->
-                <!-- <p>{movie.awards.nominated}</p> -->
-                <!-- <button class="btn variant-secondary"
-                on:click={() => fetchMovie(movie._id)}
-                >View</button> -->
+            <div class="bg-slate-300 shadow-md rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 transition duration-300">
+                <a href={`/movies/${movie._id}`} class="block">
+                    <div class="h-48 flex justify-start pb-4">
+                        {#if movie.poster}
+                            <img src={movie.poster} alt={movie.title} class="w-full h-full object-center object-cover">
+                        {:else}
+                            <img src="/defaultMoviePoster.png" alt="Default Movie Poster" class="w-full h-full object-cover">
+                        {/if}
+                    </div>
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">{movie.title}</h2>
+                        <p class="text-sm text-gray-600">{movie.releaseYear}</p>
+                    </div>
+                </a>
             </div>
         {/each}
     </div>
