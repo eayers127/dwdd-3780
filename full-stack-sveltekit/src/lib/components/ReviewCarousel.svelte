@@ -49,20 +49,10 @@
             <div class="card min-w-48 h-64 p-2 m-1 snap-start">
                 <h6 class="p-2">{review.reviewer_name}</h6>
                 {#if review.rating}
-                <Ratings bind:value={review.rating}>
-                    <svelte:fragment slot="empty">
-                        {@html icons.heartEmpty}
-                    </svelte:fragment>
-                    <svelte:fragment slot="half">
-                        {@html icons.heartHalf}
-                    </svelte:fragment>
-                    <svelte:fragment slot="full">
-                        {@html icons.heartFull}
-                    </svelte:fragment>
-                </Ratings>
+                    <h3 class="px-2">Rating: {review.rating} stars</h3>
                 {/if}
                 <article>
-                    <p class="text-xs line-clamp-[12]">{review.comments}</p>
+                    <p class="text-xs line-clamp-[12] p-2">{review.comments}</p>
                 </article>
             </div>
             {/each}
