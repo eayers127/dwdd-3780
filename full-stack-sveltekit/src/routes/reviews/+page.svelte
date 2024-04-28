@@ -69,7 +69,7 @@
                 <span>{form.error}</span>
             </div>
         {/if}
-            <form method="POST" action="?/submitReview">
+            <form class="w-3/4" method="POST" action="?/submitReview">
                 <input id="username" name="username" type="hidden" value={$page.data.session?.user?.name ?? ''}>
                 <input id="listingName" name="listingName" type="hidden" value={listingName}>
                 <input id="ratingValue" name="ratingValue" type="hidden" value={rating.current}>

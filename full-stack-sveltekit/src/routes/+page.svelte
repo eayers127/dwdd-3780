@@ -11,11 +11,13 @@
 			}
 			console.log(`$page.data.session?.user}`)
 		}
+	let username = $page.data.session?.user?.name;
 </script>
+<section class="w-screen h-screen bg-[url('/background.png')] bg-cover text-black">
 
 <div class="container h-full mx-auto flex flex-col justify-center items-center">
     <div class="space-y-10 text-center">
-        <h2 class="text-4xl font-bold">Welcome to My App</h2>
+        <h2 class="text-4xl font-bold">Welcome to My App{username ? `, ${username}` : ''}</h2>
     </div>
     <div class="flex items-center mt-8">
 		{#if !loggedIn}
@@ -27,7 +29,7 @@
 		</div>
 		{/if}
 		<div>
-			<button class="btn btn-md variant-ghost-surface"
+			<button class="btn btn-md variant-filled-secondary"
 				on:click={handleClick}>
 				{loggedIn ? 'Logout' : 'Login'}
 			</button>
@@ -35,6 +37,7 @@
     </div>
 </div>
 
+</section>
 <style>
 
 @keyframes bounce-sideways {
