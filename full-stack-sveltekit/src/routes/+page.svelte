@@ -13,7 +13,7 @@
 		}
 	let username = $page.data.session?.user?.name;
 </script>
-<section class="w-screen h-screen bg-[url('/background.png')] bg-cover text-black">
+<section class="w-screen h-screen bg-[url('/blue-background.jpg')] bg-cover text-white">
 
 <div class="container h-full mx-auto flex flex-col justify-center items-center">
     <div class="space-y-10 text-center">
@@ -23,7 +23,7 @@
 		{#if !loggedIn}
         <h4 class="mr-6">Sign in to get started</h4>
 		<div class="mt-1">
-			<svg class="animate-bounce-sideways w-6 h-6 text-gray-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<svg class="animate-bounce-sideways w-6 h-6 text-white-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
 			</svg>
 		</div>
