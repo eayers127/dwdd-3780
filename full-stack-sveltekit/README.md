@@ -1,42 +1,48 @@
-# Live Site
+# My Svelte App
 
-> My live site hosted on Vercel:
-[click here](https://www.ethanayers.xyz/).
+## Live Site
 
-## AuthJS
-[Auth JS](https://github.com/eayers127/dwdd-3780/blob/main/full-stack-sveltekit/src/routes/%2Bpage.svelte)
-[MongoDB Connection](https://github.com/eayers127/dwdd-3780/blob/main/full-stack-sveltekit/src/routes/mongodb/%2Bpage.server.ts)
+Explore the live version of the app hosted on Vercel:
+[Live Site](https://www.ethanayers.xyz/)
 
-Live Link: [Auth JS](https://www.ethanayers.xyz/)
+## Features
 
-Manage users and accounts with Auth JS. Sign in using Github to access the rest of the app. By signing in, information is sent to Mongo DB to track users.
+### AuthJS
 
-## Dynamic Routes
-[Movie Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/movies)
+- **Description**: Manage users and accounts with Auth JS. Users can sign in using GitHub authentication to access the rest of the app.
+- **Links**:
+  - [Auth JS Code](https://github.com/eayers127/dwdd-3780/blob/main/full-stack-sveltekit/src/routes/%2Bpage.svelte)
+  - [MongoDB Connection Code](https://github.com/eayers127/dwdd-3780/blob/main/full-stack-sveltekit/src/routes/mongodb/%2Bpage.server.ts)
+- **Live Demo**: [Auth JS](https://www.ethanayers.xyz/)
 
-Live Link: [Movies](https://www.ethanayers.xyz/movies)
+### Dynamic Routes
 
-Selecting a movie takes the user to a dynamic route where they can find more information about the movie selected.
-The data is retrieved from MongoDB sample data.
+- **Description**: Dynamic routing allows users to select a movie from the list and view detailed information about it. Movie data is retrieved from a MongoDB sample database.
+- **Links**:
+  - [Movie Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/movies)
+- **Live Demo**: [Movies](https://www.ethanayers.xyz/movies)
 
-## Form Action
-[Reviews Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/reviews)
+### Form Action
 
-Live Link: [Air BnB](https://www.ethanayers.xyz/reviews)
+- **Description**: Retrieve vacation rental data from MongoDB and display it on the Air BnB page. Users can submit a form to add new rental listings to the database.
+- **Links**:
+  - [Reviews Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/reviews)
+- **Live Demo**: [Air BnB](https://www.ethanayers.xyz/reviews)
 
-Retrieving sample data from Mongo DB to display vacation rentals. Submit a form to send new data to the database. 
+### API Endpoints
 
-## Adding API endpoints
+- **Description**: The app connects to a sample sales database in MongoDB and provides API endpoints to retrieve and post data to the database.
+- **Links**:
+  - [Sales Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/sales)
+  - [Sales API Folders](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/api/sales)
+- **Live Demo**: [View in Vercel](https://dwdd-3780-new.vercel.app/sales)
+- **Screenshot** - Here is a view of the database using MongoDB Compass: ![Sales Database](https://github.com/eayers127/dwdd-3780/assets/71342594/f89b5603-252a-4d26-86fb-756285c62ea8)
 
-[Sales Folder](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/sales)
+## Installation
 
-[Sales API Folders](https://github.com/eayers127/dwdd-3780/tree/main/full-stack-sveltekit/src/routes/api/sales)
->Connected to sample sales database in MongoDB
->
->Get and Post data to the database
+To run this app locally, follow these steps:
 
-Live Link: [View in Vercel](https://dwdd-3780-new.vercel.app/sales)
->A view of the database using MongoDB Compass:
-![image](https://github.com/eayers127/dwdd-3780/assets/71342594/f89b5603-252a-4d26-86fb-756285c62ea8)
-
-
+1. Clone the repository to your local machine.
+2. Install dependencies using `npm install`.
+3. Run the app using `npm run dev`.
+4. Access the app in your browser at `http://localhost:3780`.
